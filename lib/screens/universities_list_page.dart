@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tyba_technic_test/screens/university_detail_page.dart';
 
 import '../providers/universities_provider.dart';
 import '../providers/universities_state.dart';
@@ -80,7 +81,15 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
           subtitle: Text(university.country),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
-            // Navegación a detalle (luego)
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => UniversityDetailPage(
+                  university: university,
+                  index: index,
+                ),
+              ),
+            );
           },
         );
       },
@@ -102,7 +111,15 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
 
         return InkWell(
           onTap: () {
-            // Navegación a detalle (luego)
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => UniversityDetailPage(
+                  university: university,
+                  index: index,
+                ),
+              ),
+            );
           },
           child: Card(
             child: Center(
