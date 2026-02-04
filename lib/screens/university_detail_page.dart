@@ -3,9 +3,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/university.dart';
 import '../providers/universities_provider.dart';
+
+Future<void> openUrl(String url) async {
+  final uri = Uri.parse(url);
+
+  if (!await launchUrl(
+    uri,
+    mode: LaunchMode.externalApplication, // importante en web
+  )) {
+    throw Exception('No se pudo abrir $url');
+  }
+}
 
 class UniversityDetailPage extends ConsumerStatefulWidget {
   const UniversityDetailPage({
@@ -100,7 +112,7 @@ class _UniversityDetailPageState extends ConsumerState<UniversityDetailPage> {
               ),
               const SizedBox(height: 8),
               Text('Country: ${university.country}'),
-              Text('Students: ${university.students}'),
+              Text('Students: ${university.students ?? 0}'),
               const SizedBox(height: 24),
               Text(
                 'Domains',
@@ -112,7 +124,21 @@ class _UniversityDetailPageState extends ConsumerState<UniversityDetailPage> {
                 'Web pages',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              ...university.webPages.map(Text.new),
+              ...university.webPages.map(
+                (url) => InkWell(
+                  onTap: () => openUrl(url),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Text(
+                      url,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(height: 24),
               TextFormField(
                 controller: _studentsController,
