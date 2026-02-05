@@ -29,12 +29,17 @@ Widget buildGrid(UniversitiesState state) {
           );
         },
         child: Card(
+          shadowColor: Colors.amber,
+          color: const Color.fromARGB(255, 174, 229, 255),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
                 university.name,
                 textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: const Color.fromARGB(255, 3, 61, 108)),
               ),
             ),
           ),
