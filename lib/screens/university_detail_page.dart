@@ -92,7 +92,10 @@ class _UniversityDetailPageState extends ConsumerState<UniversityDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(university.name),
+        backgroundColor: const Color(0xFF157DFF),
+        title: Text(
+          university.name,
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

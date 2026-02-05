@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Tyba test university',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: const UniversitiesListPage(),
