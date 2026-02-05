@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:tyba_technic_test/screens/university_detail_page.dart';
+
+import '../providers/universities_state.dart';
+
+Widget buildList(UniversitiesState state) {
+  return ListView.builder(
+    itemCount: state.universities.length,
+    itemBuilder: (context, index) {
+      final university = state.universities[index];
+
+      return ListTile(
+        title: Text(university.name),
+        subtitle: Text(university.country),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => UniversityDetailPage(
+                university: university,
+                index: index,
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}

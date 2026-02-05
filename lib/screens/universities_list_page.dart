@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tyba_technic_test/screens/university_detail_page.dart';
+import 'package:tyba_technic_test/widgets/build_list.dart';
+import 'package:tyba_technic_test/widgets/build_grid.dart';
 
 import '../providers/universities_provider.dart';
 import '../providers/universities_state.dart';
@@ -28,14 +29,19 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tyba Universities'),
+        title: const Text(
+          'Tyba Universities',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF157DFF),
+        shadowColor: Colors.cyan,
         actions: [
           IconButton(
             icon: Icon(
-              state.layout == LayoutType.list
-                  ? Icons.grid_view
-                  : Icons.view_list,
-            ),
+                state.layout == LayoutType.list
+                    ? Icons.grid_view
+                    : Icons.view_list,
+                color: Colors.white),
             onPressed: () {
               ref.read(universitiesProvider.notifier).toggleLayout();
             },
@@ -66,74 +72,7 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
     }
 
     return state.layout == LayoutType.list
-        ? _buildList(state)
-        : _buildGrid(state);
-  }
-
-  Widget _buildList(UniversitiesState state) {
-    return ListView.builder(
-      itemCount: state.universities.length,
-      itemBuilder: (context, index) {
-        final university = state.universities[index];
-
-        return ListTile(
-          title: Text(university.name),
-          subtitle: Text(university.country),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => UniversityDetailPage(
-                  university: university,
-                  index: index,
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  Widget _buildGrid(UniversitiesState state) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(12),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-      ),
-      itemCount: state.universities.length,
-      itemBuilder: (context, index) {
-        final university = state.universities[index];
-
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => UniversityDetailPage(
-                  university: university,
-                  index: index,
-                ),
-              ),
-            );
-          },
-          child: Card(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  university.name,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+        ? buildList(state)
+        : buildGrid(state);
   }
 }
