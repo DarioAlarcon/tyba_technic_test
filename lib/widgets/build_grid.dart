@@ -14,17 +14,13 @@ Widget buildGrid(
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
     ),
-    itemCount: state.universities.length +
-        (state.hasMoreData ? 1 : 0), // 👈 +1 para el loader
+    itemCount: state.universities.length + (state.hasMoreData ? 1 : 0),
     itemBuilder: (context, index) {
-      // Detectar cuando llegamos al final
       if (index == state.universities.length) {
-        // Trigger para cargar más
         if (!state.isLoadingMore) {
           Future.microtask(() => onLoadMore());
         }
 
-        // Mostrar loading indicator
         return const Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),

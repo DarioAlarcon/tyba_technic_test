@@ -10,14 +10,11 @@ Widget buildList(
     padding: const EdgeInsets.all(12),
     itemCount: state.universities.length + (state.hasMoreData ? 1 : 0),
     itemBuilder: (context, index) {
-      // Detectar cuando llegamos al final
       if (index == state.universities.length) {
-        // Trigger para cargar más
         if (!state.isLoadingMore) {
           Future.microtask(() => onLoadMore());
         }
 
-        // Mostrar loading indicator
         return const Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),

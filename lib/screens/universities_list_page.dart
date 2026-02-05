@@ -83,7 +83,6 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
       );
     }
 
-    // 👇 Aquí pasamos el callback para cargar más
     return state.layout == LayoutType.list
         ? buildList(
             state,

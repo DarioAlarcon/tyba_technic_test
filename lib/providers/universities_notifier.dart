@@ -20,7 +20,6 @@ class UniversitiesNotifier extends StateNotifier<UniversitiesState> {
     try {
       final universities = await _service.fetchUniversities();
 
-      // Toma solo los primeros 20 items
       final initialItems = universities.take(_itemsPerPage).toList();
 
       state = state.copyWith(
@@ -38,13 +37,11 @@ class UniversitiesNotifier extends StateNotifier<UniversitiesState> {
   }
 
   Future<void> loadMore() async {
-    // Evita cargas múltiples simultáneas
     if (state.isLoadingMore || !state.hasMoreData) return;
 
     state = state.copyWith(isLoadingMore: true);
 
     try {
-      // Simula un delay de red (opcional)
       await Future.delayed(const Duration(milliseconds: 500));
 
       final allUniversities = await _service.fetchUniversities();
