@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tyba_technic_test/screens/university_detail_page.dart';
 
 import '../providers/universities_state.dart';
+import '../core/app_colors.dart';
 
 Widget buildList(
     UniversitiesState state, WidgetRef ref, Function() onLoadMore) {
@@ -27,19 +28,19 @@ Widget buildList(
 
       return Card(
         margin: const EdgeInsets.only(bottom: 12),
-        shadowColor: Colors.amber,
-        color: const Color.fromARGB(255, 174, 229, 255),
+        shadowColor: AppColors.accentShadow,
+        color: AppColors.surfaceLight,
         child: ListTile(
           title: Text(
             university.name,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
-              color: Color.fromARGB(255, 3, 61, 108),
+              color: AppColors.primaryDarker,
             ),
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios,
-            color: Color.fromARGB(255, 3, 61, 108),
+            color: AppColors.primaryDarker,
           ),
           onTap: () {
             Navigator.push(

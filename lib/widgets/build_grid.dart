@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tyba_technic_test/screens/university_detail_page.dart';
 
 import '../providers/universities_state.dart';
+import '../core/app_colors.dart';
 
 Widget buildGrid(
     UniversitiesState state, WidgetRef ref, Function() onLoadMore) {
@@ -44,8 +45,8 @@ Widget buildGrid(
           );
         },
         child: Card(
-          shadowColor: Colors.amber,
-          color: const Color.fromARGB(255, 174, 229, 255),
+          shadowColor: AppColors.accentShadow,
+          color: AppColors.surfaceLight,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -54,7 +55,7 @@ Widget buildGrid(
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Color.fromARGB(255, 3, 61, 108)),
+                    color: AppColors.primaryDarker),
               ),
             ),
           ),

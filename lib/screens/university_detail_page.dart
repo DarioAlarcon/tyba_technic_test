@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/university.dart';
 import '../providers/universities_provider.dart';
+import '../core/app_colors.dart';
 
 Future<void> openUrl(String url) async {
   final uri = Uri.parse(url);
@@ -92,7 +93,7 @@ class _UniversityDetailPageState extends ConsumerState<UniversityDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF157DFF),
+        backgroundColor: AppColors.primary,
         title: Text(
           university.name,
         ),
@@ -135,7 +136,7 @@ class _UniversityDetailPageState extends ConsumerState<UniversityDetailPage> {
                     child: Text(
                       url,
                       style: const TextStyle(
-                        color: Colors.blue,
+                        color: AppColors.link,
                         decoration: TextDecoration.underline,
                       ),
                     ),
@@ -201,7 +202,7 @@ class _ImageSection extends StatelessWidget {
           height: 180,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: AppColors.greyLight,
             borderRadius: BorderRadius.circular(12),
           ),
           child: image != null
@@ -216,7 +217,7 @@ class _ImageSection extends StatelessWidget {
                   child: Icon(
                     Icons.school,
                     size: 64,
-                    color: Colors.grey,
+                    color: AppColors.grey,
                   ),
                 ),
         ),

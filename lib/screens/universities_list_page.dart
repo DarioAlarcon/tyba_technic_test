@@ -4,6 +4,7 @@ import 'package:tyba_technic_test/widgets/build_list.dart';
 import 'package:tyba_technic_test/widgets/build_grid.dart';
 
 import '../providers/universities_provider.dart';
+import '../core/app_colors.dart';
 import '../providers/universities_state.dart';
 
 class UniversitiesListPage extends ConsumerStatefulWidget {
@@ -31,17 +32,17 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
       appBar: AppBar(
         title: const Text(
           'Tyba Universities',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.white),
         ),
-        backgroundColor: const Color(0xFF157DFF),
-        shadowColor: Colors.cyan,
+        backgroundColor: AppColors.primary,
+        shadowColor: AppColors.appBarShadow,
         actions: [
           IconButton(
             icon: Icon(
                 state.layout == LayoutType.list
                     ? Icons.grid_view
                     : Icons.view_list,
-                color: Colors.white),
+                color: AppColors.white),
             onPressed: () {
               ref.read(universitiesProvider.notifier).toggleLayout();
             },
