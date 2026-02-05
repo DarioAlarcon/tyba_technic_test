@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tyba_technic_test/screens/university_detail_page.dart';
 
 import '../providers/universities_state.dart';
 
-Widget buildGrid(UniversitiesState state) {
+Widget buildGrid(
+    UniversitiesState state, WidgetRef ref, Function() onLoadMore) {
   return GridView.builder(
     padding: const EdgeInsets.all(12),
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -12,8 +14,25 @@ Widget buildGrid(UniversitiesState state) {
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
     ),
-    itemCount: state.universities.length,
+    itemCount: state.universities.length +
+        (state.hasMoreData ? 1 : 0), // 👈 +1 para el loader
     itemBuilder: (context, index) {
+      // Detectar cuando llegamos al final
+      if (index == state.universities.length) {
+        // Trigger para cargar más
+        if (!state.isLoadingMore) {
+          Future.microtask(() => onLoadMore());
+        }
+
+        // Mostrar loading indicator
+        return const Center(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+
       final university = state.universities[index];
 
       return InkWell(

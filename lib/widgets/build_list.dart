@@ -1,33 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tyba_technic_test/screens/university_detail_page.dart';
 
 import '../providers/universities_state.dart';
 
-Widget buildList(UniversitiesState state) {
+Widget buildList(
+    UniversitiesState state, WidgetRef ref, Function() onLoadMore) {
   return ListView.builder(
-    itemCount: state.universities.length,
+    padding: const EdgeInsets.all(12),
+    itemCount: state.universities.length + (state.hasMoreData ? 1 : 0),
     itemBuilder: (context, index) {
+      // Detectar cuando llegamos al final
+      if (index == state.universities.length) {
+        // Trigger para cargar más
+        if (!state.isLoadingMore) {
+          Future.microtask(() => onLoadMore());
+        }
+
+        // Mostrar loading indicator
+        return const Center(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+
       final university = state.universities[index];
 
-      return ListTile(
-        hoverColor: const Color.fromARGB(255, 174, 229, 255),
-        iconColor: const Color.fromARGB(255, 3, 61, 108),
-        textColor: const Color.fromARGB(255, 2, 41, 73),
-        splashColor: const Color.fromARGB(255, 182, 230, 252),
-        title: Text(university.name),
-        subtitle: Text(university.country),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => UniversityDetailPage(
-                university: university,
-                index: index,
-              ),
+      return Card(
+        margin: const EdgeInsets.only(bottom: 12),
+        shadowColor: Colors.amber,
+        color: const Color.fromARGB(255, 174, 229, 255),
+        child: ListTile(
+          title: Text(
+            university.name,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Color.fromARGB(255, 3, 61, 108),
             ),
-          );
-        },
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
+            color: Color.fromARGB(255, 3, 61, 108),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => UniversityDetailPage(
+                  university: university,
+                  index: index,
+                ),
+              ),
+            );
+          },
+        ),
       );
     },
   );

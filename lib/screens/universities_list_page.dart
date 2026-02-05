@@ -61,7 +61,19 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
 
     if (state.errorMessage != null) {
       return Center(
-        child: Text(state.errorMessage!),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(state.errorMessage!),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(universitiesProvider.notifier).loadUniversities();
+              },
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
       );
     }
 
@@ -71,8 +83,17 @@ class _UniversitiesListPageState extends ConsumerState<UniversitiesListPage> {
       );
     }
 
+    // 👇 Aquí pasamos el callback para cargar más
     return state.layout == LayoutType.list
-        ? buildList(state)
-        : buildGrid(state);
+        ? buildList(
+            state,
+            ref,
+            () => ref.read(universitiesProvider.notifier).loadMore(),
+          )
+        : buildGrid(
+            state,
+            ref,
+            () => ref.read(universitiesProvider.notifier).loadMore(),
+          );
   }
 }
