@@ -10,6 +10,10 @@ Widget buildList(UniversitiesState state) {
       final university = state.universities[index];
 
       return ListTile(
+        hoverColor: const Color.fromARGB(255, 174, 229, 255),
+        iconColor: const Color.fromARGB(255, 3, 61, 108),
+        textColor: const Color.fromARGB(255, 2, 41, 73),
+        splashColor: const Color.fromARGB(255, 182, 230, 252),
         title: Text(university.name),
         subtitle: Text(university.country),
         trailing: const Icon(Icons.chevron_right),

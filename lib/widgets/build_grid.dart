@@ -39,7 +39,7 @@ Widget buildGrid(UniversitiesState state) {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: const Color.fromARGB(255, 3, 61, 108)),
+                    color: Color.fromARGB(255, 3, 61, 108)),
               ),
             ),
           ),
